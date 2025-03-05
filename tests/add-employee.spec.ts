@@ -53,9 +53,12 @@ test('Add a New Employee and Verify Login', async ({ page, browser }) => {
     await employeePage.goto('https://opensource-demo.orangehrmlive.com/');
     await employeePage.fill('input[name="username"]', username);
     await employeePage.fill('input[name="password"]', password);
+    
     await page.getByRole('button', { name: 'Login' }).click();
+    console.log('Logged in as employee');
 
     // Verify new employee login success
-    //await expect( page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
+    const dashboardHeader = await page.textContent('.oxd-topbar-header-breadcrumb-module');
+    expect(dashboardHeader).toBe('Dashboard');
 
 });
